@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $(()=>{
+            $("#UserName").keyup(()=>{
+                $.ajax({
+                    method:"GET",
+                    url:"http://127.0.0.1:4002/getusers",
+                    success :(data)=>{
+                        for(var user of data){
+                                 if(user.UserName==$("#UserName").val())
+                            {
+                                $("#userError").html("User Exists- Try Another one").css("color","red");
+                                break;
+                            }else{
+                                $("#userError").html("User Name Available").css("color","green");
+                            }   
+                        }
+                    }
+                });
+            });
+
+            $("#btnRegister").click(()=>{
+                var userdetails = {
+                    UserName:$("#UserName").val(),
+                    Mobile:parseInt($("#Mobile").val()),
+                    Email:$("#Email").val(),
+                    Password:$("#Password").val(),
+                    City:$("#City").val(),
+                    Postal:parseInt($("#Postal").val())
+                };
+                
+                $.ajax({
+                    method:"POST",
+                    url:"http://127.0.0.1:4002/registeruser",
+                    data:userdetails
+                });
+                alert("Registered Succesfully");
+                location.href="login.html";
+            })
+        })
+    </script>
+</head>
+<body>
+    <h2>Register User</h2>
+    <dl>
+        <dt>User Name</dt>
+        <dd><input type="text" id="UserName"></dd>
+        <dd id="userError"></dd>
+        <dt>Password</dt>
+        <dd><input type="password" id="Password"></dd>
+        <dt>Mobile</dt>
+        <dd><input type="text" id="Mobile"></dd>
+        <dt>Email</dt>
+        <dd><input type="email" id="Email"></dd>
+        <dt>City</dt>
+        <dd>
+            <select id="City">
+                <option>Delhi</option>
+                <option>Hyd</option>
+            </select>
+        </dd>
+        <dt>Postal</dt>
+        <dd><input type="text" id="Postal"></dd>
+        
+    </dl>
+    <button id="btnRegister">Register</button>
+    <br><br>
+    <a href="login.html">Already Have Account?</a>
+</body>
+</html>

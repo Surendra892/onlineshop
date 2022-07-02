@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/jquery.cookie/jquery.cookie.js"></script>
+    <script>
+        $(()=>{
+            if($.cookie("username")== undefined)
+            {
+                location.href="register.html";
+            }else{
+                $("#user").html($.cookie("username"));
+            }
+
+            $("button").click(()=>{
+                $.removeCookie("username");
+                location.href="login.html";
+            })
+        })
+    </script>
+</head>
+<body>
+    <h2>Shopping Home <span id="user"></span></h2>
+    <button>Signout</button>
+</body>
+</html>

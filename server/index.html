@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD operations</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script>
+        $(function(){
+            function LoadProducts(){
+                $.ajax({
+                    method:"GET",
+                    url:"http://127.0.0.1:5050/products",
+                    success:(data)=>{
+                        $.each(data,(key,value)=>{
+                            $(`
+                                <tr>
+                                    <td>${value.Name}</td>
+                                    <td>${value.Price}</td>
+                                    <td>${(value.Stock==true)?"Available":"Out Of Stock"}</td>
+                                    <td>${value.Category}</td>
+                                    <td>${value.Rating}</td>
+                                    <td>
+                                        <button class="btn btn-info" id="btnEdit"><span class="bi bi-pen-fill"></span></button>
+                                        <button class="btn btn-danger" id="btnDelete"><span class="bi bi-trash"></span></button>
+                                    </td>
+                                </tr>
+                            `).appendTo("tbody");
+                        })
+                    }
+                });
+                
+            };
+
+           function LoadCategories(){
+                $.ajax({
+                    method:"GET",
+                    url:"http://127.0.0.1:5050/categories",
+                    success:function(data){
+                        data.unshift({categoryid:-1,category:"Select a Category"})
+                        $.each(data,function(key,val){
+                            $(`
+                                <option>${val.category}</option>
+                            `).appendTo("#Category")
+                        })
+                    }
+                })
+           };
+
+            LoadCategories();
+            LoadProducts();
+
+            $("#btnAdd").click(()=>{
+                var formdata = {
+                    Productid : $("#Productid").val(),
+                    Name : $("#Name").val(),
+                    Price: $("#Price").val(),
+                    Stock : $("#Stock").prop("checked"),
+                    Category : $("#Category").val(),
+                    Rating : $("#Rating").val()
+                };
+
+                $.ajax({
+                    method:"POST",
+                    url:"http://localhost:5050/addproduct",
+                    data: formdata
+                });
+                alert("Product added");
+                location.reload();
+            })
+        })
+        
+    </script>
+</head>
+<body class="container-fluid">
+    <header class="bg-danger text-white text-center p-2 mt-1">
+        <h2>Product CRUD Operations</h2>
+    </header>
+    <div class="row m-2">
+        <div class="col-3">
+            <div>
+                <dl>
+                    <dt>Product Id</dt>
+                    <dd><input type="number" id="Productid" class="form-control"></dd>
+                    <dt>Name</dt>
+                    <dd><input type="text" id="Name" class="form-control"></dd>
+                    <dt>Price</dt>
+                    <dd><input type="number" id="Price" class="form-control"></dd>
+                    <dt>Stock</dt>
+                    <dd><input type="checkbox" id="Stock"></dd>
+                    <dt>Category</dt>
+                    <dd>
+                        <select id="Category" class="form-control">
+    
+                        </select>
+                    </dd>
+                    <dt>Rating</dt>
+                    <dd><input type="number" id="Rating" class="form-control"></dd>
+                    <button id="bt nAdd" class="btn btn-primary w-100">Add Product</button>
+                </dl>
+            </div>
+        </div>
+        <div class="col-9">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Category</th>
+                        <th>Rating</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body> 
+</html>
