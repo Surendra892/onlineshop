@@ -18,7 +18,7 @@
                         {
                             if(user.UserName==$("#UserName").val() && user.Password==$("#Password").val())
                             {
-                                $.cookie("username",$(UserName).val());
+                                $.cookie("username",$("#UserName").val());
                                 location.href="shopping.html";
                                 break;
                             }else{
