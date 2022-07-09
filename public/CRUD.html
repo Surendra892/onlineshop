@@ -95,17 +95,11 @@
                     });
                     location.reload();
                 }
+                   
+                   
+
             });
             
-
-            $("#Name").blur(()=>{
-                if($("#Name").val()==undefined)
-                {
-                    document.getElementById("btnAdd").style.disabled=true
-                } else {
-                    document.getElementById("btnAdd").style.disabled=false
-                }
-            })
            
 
             
@@ -158,11 +152,11 @@
             <div>
                 <dl>
                     <dt>Product Id</dt>
-                    <dd><input type="number" id="Productid" class="form-control" required></dd>
+                    <dd><input type="number" id="Productid" class="form-control"></dd>
                     <dt>Name</dt>
-                    <dd><input type="text" id="Name" class="form-control" required></dd>
+                    <dd><input type="text" id="Name" class="form-control"></dd>
                     <dt>Price</dt>
-                    <dd><input type="number" id="Price" class="form-control" required></dd>
+                    <dd><input type="number" id="Price" class="form-control"></dd>
                     <dt>Stock</dt>
                     <dd class="form-switch"><input type="checkbox" id="Stock" class="form-check-input"></dd>
                     <dt>Category</dt>
