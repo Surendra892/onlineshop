@@ -59,22 +59,29 @@
             LoadProducts();
             //Add Product
             $("#btnAdd").click(()=>{
-                var formdata = {
+                if($("#Name").val()=="" || $("#Price").val()=="")
+                {
+                    $("#AlertTxt").html("Fill the required Fields").css("color","red");                                
+                }else{
+                    $("#AlertTxt").html("");
+                    var formdata = {
                     Productid : $("#Productid").val(),
                     Name : $("#Name").val(),
                     Price: $("#Price").val(),
                     Stock : $("#Stock").prop("checked"),
                     Category : $("#Category").val(),
                     Rating : $("#Rating").val()
-                };
+                    };
 
-                $.ajax({
+                    $.ajax({
                         method:"POST",
                         url:"http://localhost:5050/addproduct",
                         data: formdata
                     });
                         alert("Product added");
                         location.reload();
+                }   
+                
             })
              // Update Product
             $("#update").click(()=>{
@@ -95,15 +102,21 @@
                     });
                     location.reload();
                 }
-                   
-                   
-
             });
             
+            $("#Price").blur(()=>{
+                if($("#Name").val()!="" && $("#Price").val()!="")
+                {
+                    $("#AlertTxt").html("");                              
+                }
+            });
+
+           
+                
+              
            
 
-            
-           
+         
         });
 
         function GetId(id) {
@@ -167,6 +180,7 @@
                     </dd>
                     <dt>Rating</dt>
                     <dd><input type="number" id="Rating" class="form-control"></dd>
+                    <div id="AlertTxt"></div>
                     <button id="btnAdd" class="btn btn-primary w-100">Add Product</button>
                 </dl>
             </div>
