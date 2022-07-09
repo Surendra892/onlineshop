@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script>
+    <script type="text/javascript">
         $(function(){
             function LoadProducts(){
                 $.ajax({
@@ -95,11 +95,17 @@
                     });
                     location.reload();
                 }
-                   
-                   
-
             });
             
+
+            $("#Name").blur(()=>{
+                if($("#Name").val()==undefined)
+                {
+                    document.getElementById("btnAdd").style.disabled=true
+                } else {
+                    document.getElementById("btnAdd").style.disabled=false
+                }
+            })
            
 
             
@@ -152,11 +158,11 @@
             <div>
                 <dl>
                     <dt>Product Id</dt>
-                    <dd><input type="number" id="Productid" class="form-control"></dd>
+                    <dd><input type="number" id="Productid" class="form-control" required></dd>
                     <dt>Name</dt>
-                    <dd><input type="text" id="Name" class="form-control"></dd>
+                    <dd><input type="text" id="Name" class="form-control" required></dd>
                     <dt>Price</dt>
-                    <dd><input type="number" id="Price" class="form-control"></dd>
+                    <dd><input type="number" id="Price" class="form-control" required></dd>
                     <dt>Stock</dt>
                     <dd class="form-switch"><input type="checkbox" id="Stock" class="form-check-input"></dd>
                     <dt>Category</dt>
