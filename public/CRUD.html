@@ -155,13 +155,21 @@
         }; 
         
     </script>
+    <style type="text/css">
+        @media screen and (max-width:680px){
+            
+            header,#table,#table-2{
+                width: auto;
+            }
+        }
+    </style>
 </head>
 <body class="container-fluid">
     <header class="bg-danger text-white text-center p-2 mt-1">
         <h2>Product CRUD Operations</h2>
     </header>
-    <div class="row m-2">
-        <div class="col-3">
+    <div class="row m-2" >
+        <div class="col-3" id="table">
             <div>
                 <dl>
                     <dt>Product Id</dt>
@@ -186,7 +194,7 @@
             </div>
         </div>
         <div class="col-9">
-            <table class="table table-hover">
+            <table class="table table-hover" id=table-2>
                 <thead>
                     <tr>
                         <th>Productid</th>
