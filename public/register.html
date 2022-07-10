@@ -16,6 +16,7 @@
     <script type="text/javascript">
         $(()=>{
             $("#UserName").keyup(()=>{
+                $("#UserErr").html("");
                 $.ajax({
                     method:"GET",
                     url:"http://127.0.0.1:4002/getusers",
@@ -33,17 +34,36 @@
                 });
             });
 
-        
+            $("#Password").keyup(()=>{
+                
+                if($("#UserName").val()!="")
+                {
+                    if($("#Password").val()!="")
+                    {
+                        $("#UserErr").html("");
+                        $("#PasswordErr").html("");
+                    }
+                }else{
+                        $("#UserErr").html("Enter the User Name").css("color","red");
+                    }
+            });
 
             $("#btnRegister").click(()=>{
                
-                if($("#UserName").val()==" " || $("#Password").val()=="")
+                if($("#UserName").val()=="")
                 {
-                    $("#err").html("Fill the required fields").css("color","red");
+                    $("#UserErr").html("Enter the User Name").css("color","red");
                     
-                } else {
-                
-                    $("#err").html("fill the required fields");                    
+                } else if($("#UserName").val()!=""){
+
+                    $("#UserErr").html("");
+                    if($("#Password").val()=="")
+                    {
+                        $("#PasswordErr").html("Enter the Password").css("color","red");
+                    }else{
+                        $("#UserErr").html("");
+                        $("#PasswordErr").html(""); 
+
                     var userdetails = {
                         Mobile:parseInt($("#Mobile").val()),
                         UserName:$("#UserName").val(),
@@ -60,7 +80,8 @@
                         });
                         alert("Registered Succesfully");
                         location.href="login.html";
-                }
+                    }
+                } 
             })
         })
     </script>
@@ -68,12 +89,11 @@
 <body class="container-fluid d-flex"> 
     <div>
         <h2>Register User</h2>
-        <h4 id="err"></h4>
         <dl>
-            <dt>User Name</dt>
+            <dt>User Name</dt><span id="UserErr"></span>
             <dd><input type="text" id="UserName"  required></dd>
             <dd id="userError"></dd>
-            <dt>Password</dt>
+            <dt>Password</dt><span id="PasswordErr"></span>
             <dd><input type="password" id="Password" required ></dd>
             <dt>Mobile</dt>
             <dd><input type="text" id="Mobile" required></dd>

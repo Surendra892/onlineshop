@@ -17,25 +17,59 @@
     <script type="text/javascript">
         $(()=>{
             $("button").click(()=>{
-                $.ajax({
-                    method:"GET",
-                    url:"http://localhost:4002/getusers",
-                    success:(data)=>{
-                        for(var user of data)
-                        {
-                            if(user.UserName==$("#UserName").val() && user.Password==$("#Password").val())
+
+                if($("#UserName").val()!=""){
+
+                    if($("#Password").val()!=""){
+                        $.ajax({
+                        method:"GET",
+                        url:"http://localhost:4002/getusers",
+                        success:(data)=>{
+                            for(var user of data)
                             {
-                                $.cookie("username",$("#UserName").val());
-                                location.href="shopping.html";
-                                break;
-                            }else{
-                                $("#error").html("Invalid User Name or Password").css("color","red");
+                                if(user.UserName==$("#UserName").val() && user.Password==$("#Password").val())
+                                {
+                                    $.cookie("username",$("#UserName").val());
+                                    location.href="shopping.html";
+                                    break;
+                                }else{
+                                    $("#error").html("Invalid User Name or Password").css("color","red");
+                                }
                             }
                         }
+                        });
+
+                    } else {
+                        $("#error").html("Enter Password").css("color","red");
                     }
-                })
-            })
-        })
+                    
+                } else{
+                   $("#error").html("Enter User Name").css("color","red");
+                }
+                
+            });
+
+
+            $("#UserName").keyup(()=>{
+                if($("#Password").val()=="")
+                {
+                    $("#error").html("Enter Password").css("color","red");
+                } else{
+                    $("#error").html("");
+                }
+            });
+
+            $("#Password").keyup(()=>{
+                if($("#UserName").val()=="")
+                {
+                    $("#error").html("Enter User Name").css("color","red");
+                } else{
+                    $("#error").html("");
+                }
+            });
+
+
+        });
     </script>
 </head>
 <body class="container-fluid d-flex">
@@ -48,7 +82,7 @@
             <dd><input type="password" id="Password"></dd>
         </dl>
         <button>Login</button>
-        <h2 id="error"></h2>
+        <h6 id="error"></h6>
         <br><br>
         <a href="register.html">New User Register</a>
     </div>
