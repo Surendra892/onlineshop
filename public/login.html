@@ -45,11 +45,11 @@
                         });
 
                     } else {
-                        $("#ErrPassword").html("Enter Password").css("color","red");
+                        $("#ErrPassword").html("Enter the Password").css("color","red");
                     }
                     
                 } else{
-                   $("#ErrUser").html("Enter User Name").css("color","red");
+                   $("#ErrUser").html("Enter the User Name").css("color","red");
                 }
                 
             });
@@ -58,11 +58,7 @@
             $("#UserName").keyup(()=>{
 
                 $("#ErrUser").html("");
-
-                if($("#Password").val()!="")
-                {
-                    $("#ErrPassword").html("");
-                }
+                $("#ErrPassword").html("")
             });
 
             $("#Password").keyup(()=>{
@@ -70,7 +66,7 @@
                 $("#ErrPassword").html("");
                 if($("#UserName").val()=="")
                 {
-                    $("#ErrUser").html("Enter User Name").css("color","red");
+                    $("#ErrUser").html("Enter the User Name").css("color","red");
                 }
             });
 

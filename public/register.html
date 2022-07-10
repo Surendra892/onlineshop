@@ -18,13 +18,14 @@
             $("#UserName").keyup(()=>{
 
                 $("#UserErr").html("");
-                               
+                $("#PasswordErr").html("");
+
                 $.ajax({
                     method:"GET",
                     url:"http://127.0.0.1:4002/getusers",
                     success :(data)=>{
                         for(var user of data){
-                                 if(user.UserName==$("#UserName").val())
+                                if(user.UserName==$("#UserName").val())
                             {
                                 $("#userError").html("User Exists- Try Another one").css("color","red");
                                 break;
@@ -46,7 +47,7 @@
                         $("#PasswordErr").html("");
                     }
                 }else{
-                        $("#UserErr").html("Enter the User Name").css("color","red");
+                        $("#UserErr").html("Enter  User Name").css("color","red");
                     }
             });
 
@@ -54,14 +55,14 @@
                
                 if($("#UserName").val()=="")
                 {
-                    $("#UserErr").html("Enter the User Name").css("color","red");
+                    $("#UserErr").html("Enter  User Name").css("color","red");
                     
                 } else if($("#UserName").val()!=""){
 
                     $("#UserErr").html("");
                     if($("#Password").val()=="")
                     {
-                        $("#PasswordErr").html("Enter the Password").css("color","red");
+                        $("#PasswordErr").html("Enter  Password").css("color","red");
                     }else{
                         $("#UserErr").html("");
                         $("#PasswordErr").html(""); 
