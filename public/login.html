@@ -27,44 +27,50 @@
                         success:(data)=>{
                             for(var user of data)
                             {
-                                if(user.UserName==$("#UserName").val() && user.Password==$("#Password").val())
+                                if(user.UserName==$("#UserName").val())
                                 {
-                                    $.cookie("username",$("#UserName").val());
-                                    location.href="shopping.html";
-                                    break;
+                                    if(user.Password==$("#Password").val()){
+                                        $.cookie("username",$("#UserName").val());
+                                        location.href="shopping.html";
+                                        break;
+                                    }else{
+                                        $("#error").html("Invalid Password").css("color","red");
+                                    }
+
                                 }else{
-                                    $("#error").html("Invalid User Name or Password").css("color","red");
+                                    $("#error").html("Invalid User Name").css("color","red");
                                 }
                             }
                         }
                         });
 
                     } else {
-                        $("#error").html("Enter Password").css("color","red");
+                        $("#ErrPassword").html("Enter Password").css("color","red");
                     }
                     
                 } else{
-                   $("#error").html("Enter User Name").css("color","red");
+                   $("#ErrUser").html("Enter User Name").css("color","red");
                 }
                 
             });
 
 
             $("#UserName").keyup(()=>{
-                if($("#Password").val()=="")
+
+                $("#ErrUser").html("");
+
+                if($("#Password").val()!="")
                 {
-                    $("#error").html("Enter Password").css("color","red");
-                } else{
-                    $("#error").html("");
+                    $("#ErrPassword").html("");
                 }
             });
 
             $("#Password").keyup(()=>{
+
+                $("#ErrPassword").html("");
                 if($("#UserName").val()=="")
                 {
-                    $("#error").html("Enter User Name").css("color","red");
-                } else{
-                    $("#error").html("");
+                    $("#ErrUser").html("Enter User Name").css("color","red");
                 }
             });
 
@@ -76,9 +82,9 @@
     <div>
         <h2>Login</h2>
         <dl>
-            <dt>User Name</dt>
+            <dt>User Name</dt><span id="ErrUser"></span>
             <dd><input type="text" id="UserName"></dd>
-            <dt>Password</dt>
+            <dt>Password</dt><span id="ErrPassword"></span>
             <dd><input type="password" id="Password"></dd>
         </dl>
         <button>Login</button>

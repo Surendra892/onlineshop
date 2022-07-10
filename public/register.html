@@ -16,7 +16,9 @@
     <script type="text/javascript">
         $(()=>{
             $("#UserName").keyup(()=>{
+
                 $("#UserErr").html("");
+                               
                 $.ajax({
                     method:"GET",
                     url:"http://127.0.0.1:4002/getusers",
